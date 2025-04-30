@@ -14,6 +14,7 @@
                     <div class="shadow-sm p-3 mb-5 bg-body rounded text-center ">
                         <i class="fa-solid fa-building fa-2x rounded-circle" style="font-size: 40px"></i>
                         <div class="card-body">
+                            <!--@lang('messages.TOTAL_FLOOR')-->
                             <h5 class="card-title text-uppercase">Total Floor</h5>
                             <span class="fw-bold text-primary" style="font-size: 22px">{{ $totalFloors }}</span>
                         </div>

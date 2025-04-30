@@ -16,6 +16,7 @@
                 <a href="{{ url('lang/ar') }}">العربية</a>
             </li>
             -->
+             <!--
             <form action="{{ route('change.language') }}" method="POST">
                 @csrf
                 <select name="lang" onchange="this.form.submit()">
@@ -23,6 +24,19 @@
                     <option value="ar" {{ app()->getLocale() == 'ar' ? 'selected' : '' }}>العربية</option>
                 </select>
             </form>
+            -->
+          
+            <!-- Added Google Translate -->
+            <div id="google_translate_element"></div>
+            <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+                const poweredby = document.getElementsByClassName('skiptranslate goog-te-gadget');
+                    poweredby[0].firstChild.nextSibling.remove();
+                const googlelogo = document.getElementsByClassName('VIpgJd-ZVi9od-l4eHX-hSRGPd')[0].remove();
+            }
+            </script>
+            <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
         </ul>
         <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"

@@ -4,7 +4,7 @@ use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 // Dashboard
 
 Breadcrumbs::for('dashboard', function ($trail) {
-    $trail->push('Dashboard', route('dashboard'));
+    $trail->push('Dashboard', route('dashboard')); //$trail->push(__('messages.dashboard'), route('dashboard'));
 });
 
 // Floors
@@ -100,7 +100,7 @@ Breadcrumbs::for('addCommitteeMember', function ($trail) {
 
 // Owners
 Breadcrumbs::for('owners', function ($trail) {
-    $trail->push('Committee Member List', url('owners'));
+    $trail->push('Owners List', url('owners'));
 });
 
 Breadcrumbs::for('addOwner', function ($trail) {
