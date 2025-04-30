@@ -18,15 +18,15 @@
         <form method="POST" action="{{ route('floors.store') }}" class="row g-3 needs-validation" novalidate>
           @csrf
           <div class="col-md-6">
-            <label for="floor_name" class="form-label">Floor Name :</label>
-            <input name="floor_name" type="text" class="form-control" id="floor_name" placeholder="Floor Name" required>
+            <label for="floor_name" class="form-label">@lang('messages.floor_name') :</label>
+            <input name="floor_name" type="text" class="form-control" id="floor_name" placeholder="@lang('messages.floor_name')" required>
             <div class="invalid-feedback">
             </div>
           </div>
 
 
           <div class="col-12">
-            <button class="btn btn-primary" type="submit">Save Information</button>
+            <button class="btn btn-primary" type="submit">@lang('messages.save_information')</button>
           </div>
         </form>
       </div>

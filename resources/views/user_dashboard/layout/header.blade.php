@@ -10,7 +10,19 @@
                 <use xlink:href="{{ asset('themes/assets/brand/coreui.svg#full') }}"></use>
             </svg></a>
         <ul class="header-nav ms-auto">
-
+            <!--
+            <li class="nav-item dropdown">
+                <a href="{{ url('lang/en') }}">English</a>
+                <a href="{{ url('lang/ar') }}">العربية</a>
+            </li>
+            -->
+            <form action="{{ route('change.language') }}" method="POST">
+                @csrf
+                <select name="lang" onchange="this.form.submit()">
+                    <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                    <option value="ar" {{ app()->getLocale() == 'ar' ? 'selected' : '' }}>العربية</option>
+                </select>
+            </form>
         </ul>
         <ul class="header-nav ms-3">
             <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button"

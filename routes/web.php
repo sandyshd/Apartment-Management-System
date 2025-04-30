@@ -91,12 +91,21 @@ Route::middleware('auth')->group(function () {
 });
 
 
+/*
+Route::get('lang/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+    return redirect()->back();
+});
+*/
 
-
-
-
-
-
+Route::post('/change-language', function (Illuminate\Http\Request $request) {
+    $lang = $request->input('lang');
+    if (in_array($lang, ['en', 'ar', 'fr'])) {
+        session(['locale' => $lang]);
+        App::setLocale($lang);
+    }
+    return redirect()->back();
+})->name('change.language');
 
 
 require __DIR__.'/auth.php';
