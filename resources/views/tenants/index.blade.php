@@ -15,7 +15,6 @@
           <th>Tenant Name</th>
           <th>Contact</th>
           <th>Rented Unit No</th>
-          <th>Advance Payment</th>
           <th>Payment Per Month</th>
           <th>Status</th>
           <th>Action</th>
@@ -32,35 +31,38 @@
           <td>{{ $tenant->name }}</td>
           <td>{{ $tenant->contact }}</td>
           <td>{{ $tenant->available_unit_no }}</td>
-          <td>{{ $tenant->advance_rent }}</td>
           <td>{{ $tenant->rent_per_month }}</td>
           <td>{{ $tenant->status }}</td>
           <td>
+            <form action="{{ route('tenants.destroy', ['tenant' => $tenant->id]) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button class="btn btn-danger rounded-0 float-end" onclick="return confirm ('Are you sure?')"
+                type="submit">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </form>
             <a href="{{ url('tenants/'.$tenant->id.'/edit') }}" class="btn btn btn-success rounded-0 float-end"
               type="submit"><i class="fas fa-edit"></i>
               <!-- Font Awesome Edit Icon --></a>
-            <form action="{{ route('tenants.destroy', $tenant->id) }}" class="float-end" method="POST">
-              @csrf
-              @method('DELETE')
-              <button class="btn btn btn-danger rounded-0" type="submit"><i class="fas fa-trash-alt"></i>
-                <!-- Font Awesome Delete Icon --></button>
-            </form>
+              <a href="{{ route('tenants.show', ['tenant' => $tenant->id]) }}" class="btn btn-primary rounded-0 float-end">
+                <i class="fas fa-eye"></i>
+              </a>   
           </td>
         </tr>
         @endforeach
       </tbody>
-      <tfoot>
+      <!--<tfoot>
         <tr>
           <th>Image</th>
           <th>Tenant Name</th>
           <th>Contact</th>
           <th>Rented Unit No</th>
-          <th>Advance Payment</th>
           <th>Payment Per Month</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
-      </tfoot>
+      </tfoot>-->
     </table>
   </div>
 </div>

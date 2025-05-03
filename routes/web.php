@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('complaint', ComplaintController::class);
     Route::resource('designation', DesignationController::class);
     Route::resource('tenants', TenantController::class);
+    Route::get('tenants/{id}/edit', [TenantController::class, 'edit'])->name('tenants.edit');
+    Route::put('tenants/{id}', [TenantController::class, 'update'])->name('tenants.update');
     Route::resource('employees', EmployeeController::class);
     Route::resource('employee_salaries', EmployeeSalaryController::class);
     Route::get('/employee/{employeeName}', [EmployeeAjaxController::class,'getEmployeeDetails']);

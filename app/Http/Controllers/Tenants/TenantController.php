@@ -23,7 +23,8 @@ class TenantController extends Controller
      */
     public function create()
     {
-        return view('tenants.create');    }
+        return view('tenants.create');    
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -89,7 +90,8 @@ class TenantController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tenant = Tenant::findOrFail($id);
+        return view('tenants.show', compact('tenant'));
     }
 
     /**
@@ -97,7 +99,8 @@ class TenantController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tenant = Tenant::findOrFail($id);
+        return view('tenants.edit', compact('tenant'));
     }
 
     /**
@@ -105,14 +108,61 @@ class TenantController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validate the form data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:tenants,email,' . $id,
+            'contact' => 'required|string',
+            'address' => 'required|string',
+            'nid' => 'required|string',
+            'floor_no' => 'required',
+            'available_unit_no' => 'required',
+            'advance_rent' => 'required|numeric',
+            'rent_per_month' => 'required|numeric',
+            'issue_date' => 'required|date',
+            'rent_month' => 'required|string',
+            'rent_year' => 'required|string',
+            'status' => 'required|string',
+            'tenant_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $tenant = Tenant::findOrFail($id);
+
+        // Handle file upload if a new tenant photo is provided
+        if ($request->hasFile('tenant_photo')) {
+            // Delete the old photo if it exists
+            if ($tenant->tenant_photo) {
+                \Storage::disk('public')->delete($tenant->tenant_photo);
+            }
+
+            // Store the new photo
+            $photoPath = $request->file('tenant_photo')->store('tenant_photos', 'public');
+            $validatedData['tenant_photo'] = $photoPath;
+        }
+
+        // Update the tenant details
+        $tenant->update($validatedData);
+
+        // Redirect to a success page or do something else
+        $request->session()->flash('alert-success', 'Tenant Successfully updated');
+        return redirect('tenants');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $tenant = Tenant::findOrFail($id);
+
+        // Delete the tenant's image from storage
+        if ($tenant->tenant_photo) {
+            \Storage::disk('public')->delete($tenant->tenant_photo);
+        }
+
+        // Delete the tenant from the database
+        $tenant->delete();
+        $request->session()->flash('alert-danger', 'Tenant Successfully Deleted');
+        return redirect()->back();
     }
 }
